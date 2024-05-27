@@ -2,68 +2,68 @@ import { supabase } from "@/lib/supabase/browser-client"
 import { TablesInsert } from "@/supabase/types"
 
 export const getAssistantCollectionsByAssistantId = async (
-  assistantId: string
+	assistantId: string
 ) => {
-  const { data: assistantCollections, error } = await supabase
-    .from("assistants")
-    .select(
-      `
+	const { data: assistantCollections, error } = await supabase
+		.from("assistants")
+		.select(
+			`
         id, 
         name, 
         collections (*)
       `
-    )
-    .eq("id", assistantId)
-    .single()
+		)
+		.eq("id", assistantId)
+		.single()
 
-  if (!assistantCollections) {
-    throw new Error(error.message)
-  }
+	if (!assistantCollections) {
+		throw new Error(error.message)
+	}
 
-  return assistantCollections
+	return assistantCollections
 }
 
 export const createAssistantCollection = async (
-  assistantCollection: TablesInsert<"assistant_collections">
+	assistantCollection: TablesInsert<"assistant_collections">
 ) => {
-  const { data: createdAssistantCollection, error } = await supabase
-    .from("assistant_collections")
-    .insert(assistantCollection)
-    .select("*")
+	const { data: createdAssistantCollection, error } = await supabase
+		.from("assistant_collections")
+		.insert(assistantCollection)
+		.select("*")
 
-  if (!createdAssistantCollection) {
-    throw new Error(error.message)
-  }
+	if (!createdAssistantCollection) {
+		throw new Error(error.message)
+	}
 
-  return createdAssistantCollection
+	return createdAssistantCollection
 }
 
 export const createAssistantCollections = async (
-  assistantCollections: TablesInsert<"assistant_collections">[]
+	assistantCollections: TablesInsert<"assistant_collections">[]
 ) => {
-  const { data: createdAssistantCollections, error } = await supabase
-    .from("assistant_collections")
-    .insert(assistantCollections)
-    .select("*")
+	const { data: createdAssistantCollections, error } = await supabase
+		.from("assistant_collections")
+		.insert(assistantCollections)
+		.select("*")
 
-  if (!createdAssistantCollections) {
-    throw new Error(error.message)
-  }
+	if (!createdAssistantCollections) {
+		throw new Error(error.message)
+	}
 
-  return createdAssistantCollections
+	return createdAssistantCollections
 }
 
 export const deleteAssistantCollection = async (
-  assistantId: string,
-  collectionId: string
+	assistantId: string,
+	collectionId: string
 ) => {
-  const { error } = await supabase
-    .from("assistant_collections")
-    .delete()
-    .eq("assistant_id", assistantId)
-    .eq("collection_id", collectionId)
+	const { error } = await supabase
+		.from("assistant_collections")
+		.delete()
+		.eq("assistant_id", assistantId)
+		.eq("collection_id", collectionId)
 
-  if (error) throw new Error(error.message)
+	if (error) throw new Error(error.message)
 
-  return true
+	return true
 }

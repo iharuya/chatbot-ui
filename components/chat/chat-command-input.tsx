@@ -6,43 +6,43 @@ import { FilePicker } from "./file-picker"
 import { PromptPicker } from "./prompt-picker"
 import { ToolPicker } from "./tool-picker"
 
-interface ChatCommandInputProps {}
+type ChatCommandInputProps = {}
 
 export const ChatCommandInput: FC<ChatCommandInputProps> = ({}) => {
-  const {
-    newMessageFiles,
-    chatFiles,
-    slashCommand,
-    isFilePickerOpen,
-    setIsFilePickerOpen,
-    hashtagCommand,
-    focusPrompt,
-    focusFile
-  } = useContext(ChatbotUIContext)
+	const {
+		newMessageFiles,
+		chatFiles,
+		slashCommand,
+		isFilePickerOpen,
+		setIsFilePickerOpen,
+		hashtagCommand,
+		focusPrompt,
+		focusFile
+	} = useContext(ChatbotUIContext)
 
-  const { handleSelectUserFile, handleSelectUserCollection } =
-    usePromptAndCommand()
+	const { handleSelectUserFile, handleSelectUserCollection } =
+		usePromptAndCommand()
 
-  return (
-    <>
-      <PromptPicker />
+	return (
+		<>
+			<PromptPicker />
 
-      <FilePicker
-        isOpen={isFilePickerOpen}
-        searchQuery={hashtagCommand}
-        onOpenChange={setIsFilePickerOpen}
-        selectedFileIds={[...newMessageFiles, ...chatFiles].map(
-          file => file.id
-        )}
-        selectedCollectionIds={[]}
-        onSelectFile={handleSelectUserFile}
-        onSelectCollection={handleSelectUserCollection}
-        isFocused={focusFile}
-      />
+			<FilePicker
+				isOpen={isFilePickerOpen}
+				searchQuery={hashtagCommand}
+				onOpenChange={setIsFilePickerOpen}
+				selectedFileIds={[...newMessageFiles, ...chatFiles].map(
+					(file) => file.id
+				)}
+				selectedCollectionIds={[]}
+				onSelectFile={handleSelectUserFile}
+				onSelectCollection={handleSelectUserCollection}
+				isFocused={focusFile}
+			/>
 
-      <ToolPicker />
+			<ToolPicker />
 
-      <AssistantPicker />
-    </>
-  )
+			<AssistantPicker />
+		</>
+	)
 }

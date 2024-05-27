@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
-import mistral from "@/public/providers/mistral.png"
 import groq from "@/public/providers/groq.png"
+import mistral from "@/public/providers/mistral.png"
 import perplexity from "@/public/providers/perplexity.png"
 import { ModelProvider } from "@/types"
 import { IconSparkles } from "@tabler/icons-react"
@@ -12,96 +12,96 @@ import { GoogleSVG } from "../icons/google-svg"
 import { OpenAISVG } from "../icons/openai-svg"
 
 interface ModelIconProps extends HTMLAttributes<HTMLDivElement> {
-  provider: ModelProvider
-  height: number
-  width: number
+	provider: ModelProvider
+	height: number
+	width: number
 }
 
 export const ModelIcon: FC<ModelIconProps> = ({
-  provider,
-  height,
-  width,
-  ...props
+	provider,
+	height,
+	width,
+	...props
 }) => {
-  const { theme } = useTheme()
+	const { theme } = useTheme()
 
-  switch (provider as ModelProvider) {
-    case "openai":
-      return (
-        <OpenAISVG
-          className={cn(
-            "rounded-sm bg-white p-1 text-black",
-            props.className,
-            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
-          )}
-          width={width}
-          height={height}
-        />
-      )
-    case "mistral":
-      return (
-        <Image
-          className={cn(
-            "rounded-sm p-1",
-            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
-          )}
-          src={mistral.src}
-          alt="Mistral"
-          width={width}
-          height={height}
-        />
-      )
-    case "groq":
-      return (
-        <Image
-          className={cn(
-            "rounded-sm p-0",
-            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
-          )}
-          src={groq.src}
-          alt="Groq"
-          width={width}
-          height={height}
-        />
-      )
-    case "anthropic":
-      return (
-        <AnthropicSVG
-          className={cn(
-            "rounded-sm bg-white p-1 text-black",
-            props.className,
-            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
-          )}
-          width={width}
-          height={height}
-        />
-      )
-    case "google":
-      return (
-        <GoogleSVG
-          className={cn(
-            "rounded-sm bg-white p-1 text-black",
-            props.className,
-            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
-          )}
-          width={width}
-          height={height}
-        />
-      )
-    case "perplexity":
-      return (
-        <Image
-          className={cn(
-            "rounded-sm p-1",
-            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
-          )}
-          src={perplexity.src}
-          alt="Mistral"
-          width={width}
-          height={height}
-        />
-      )
-    default:
-      return <IconSparkles size={width} />
-  }
+	switch (provider as ModelProvider) {
+		case "openai":
+			return (
+				<OpenAISVG
+					className={cn(
+						"rounded-sm bg-white p-1 text-black",
+						props.className,
+						theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
+					)}
+					width={width}
+					height={height}
+				/>
+			)
+		case "mistral":
+			return (
+				<Image
+					className={cn(
+						"rounded-sm p-1",
+						theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
+					)}
+					src={mistral.src}
+					alt="Mistral"
+					width={width}
+					height={height}
+				/>
+			)
+		case "groq":
+			return (
+				<Image
+					className={cn(
+						"rounded-sm p-0",
+						theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
+					)}
+					src={groq.src}
+					alt="Groq"
+					width={width}
+					height={height}
+				/>
+			)
+		case "anthropic":
+			return (
+				<AnthropicSVG
+					className={cn(
+						"rounded-sm bg-white p-1 text-black",
+						props.className,
+						theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
+					)}
+					width={width}
+					height={height}
+				/>
+			)
+		case "google":
+			return (
+				<GoogleSVG
+					className={cn(
+						"rounded-sm bg-white p-1 text-black",
+						props.className,
+						theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
+					)}
+					width={width}
+					height={height}
+				/>
+			)
+		case "perplexity":
+			return (
+				<Image
+					className={cn(
+						"rounded-sm p-1",
+						theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
+					)}
+					src={perplexity.src}
+					alt="Mistral"
+					width={width}
+					height={height}
+				/>
+			)
+		default:
+			return <IconSparkles size={width} />
+	}
 }

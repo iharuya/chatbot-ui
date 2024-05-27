@@ -9,92 +9,92 @@ import { FC, useContext, useState } from "react"
 import { CollectionFileSelect } from "./collection-file-select"
 
 interface CreateCollectionProps {
-  isOpen: boolean
-  onOpenChange: (isOpen: boolean) => void
+	isOpen: boolean
+	onOpenChange: (isOpen: boolean) => void
 }
 
 export const CreateCollection: FC<CreateCollectionProps> = ({
-  isOpen,
-  onOpenChange
+	isOpen,
+	onOpenChange
 }) => {
-  const { profile, selectedWorkspace } = useContext(ChatbotUIContext)
+	const { profile, selectedWorkspace } = useContext(ChatbotUIContext)
 
-  const [name, setName] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
-  const [description, setDescription] = useState("")
-  const [selectedCollectionFiles, setSelectedCollectionFiles] = useState<
-    CollectionFile[]
-  >([])
+	const [name, setName] = useState("")
+	const [isTyping, setIsTyping] = useState(false)
+	const [description, setDescription] = useState("")
+	const [selectedCollectionFiles, setSelectedCollectionFiles] = useState<
+		CollectionFile[]
+	>([])
 
-  const handleFileSelect = (file: CollectionFile) => {
-    setSelectedCollectionFiles(prevState => {
-      const isFileAlreadySelected = prevState.find(
-        selectedFile => selectedFile.id === file.id
-      )
+	const handleFileSelect = (file: CollectionFile) => {
+		setSelectedCollectionFiles((prevState) => {
+			const isFileAlreadySelected = prevState.find(
+				(selectedFile) => selectedFile.id === file.id
+			)
 
-      if (isFileAlreadySelected) {
-        return prevState.filter(selectedFile => selectedFile.id !== file.id)
-      } else {
-        return [...prevState, file]
-      }
-    })
-  }
+			if (isFileAlreadySelected) {
+				return prevState.filter((selectedFile) => selectedFile.id !== file.id)
+			} else {
+				return [...prevState, file]
+			}
+		})
+	}
 
-  if (!profile) return null
-  if (!selectedWorkspace) return null
+	if (!profile) return null
+	if (!selectedWorkspace) return null
 
-  return (
-    <SidebarCreateItem
-      contentType="collections"
-      createState={
-        {
-          collectionFiles: selectedCollectionFiles.map(file => ({
-            user_id: profile.user_id,
-            collection_id: "",
-            file_id: file.id
-          })),
-          user_id: profile.user_id,
-          name,
-          description
-        } as TablesInsert<"collections">
-      }
-      isOpen={isOpen}
-      isTyping={isTyping}
-      onOpenChange={onOpenChange}
-      renderInputs={() => (
-        <>
-          <div className="space-y-1">
-            <Label>Files</Label>
+	return (
+		<SidebarCreateItem
+			contentType="collections"
+			createState={
+				{
+					collectionFiles: selectedCollectionFiles.map((file) => ({
+						user_id: profile.user_id,
+						collection_id: "",
+						file_id: file.id
+					})),
+					user_id: profile.user_id,
+					name,
+					description
+				} as TablesInsert<"collections">
+			}
+			isOpen={isOpen}
+			isTyping={isTyping}
+			onOpenChange={onOpenChange}
+			renderInputs={() => (
+				<>
+					<div className="space-y-1">
+						<Label>Files</Label>
 
-            <CollectionFileSelect
-              selectedCollectionFiles={selectedCollectionFiles}
-              onCollectionFileSelect={handleFileSelect}
-            />
-          </div>
+						<CollectionFileSelect
+							selectedCollectionFiles={selectedCollectionFiles}
+							onCollectionFileSelect={handleFileSelect}
+						/>
+					</div>
 
-          <div className="space-y-1">
-            <Label>Name</Label>
+					<div className="space-y-1">
+						<Label>Name</Label>
 
-            <Input
-              placeholder="Collection name..."
-              value={name}
-              onChange={e => setName(e.target.value)}
-              maxLength={COLLECTION_NAME_MAX}
-            />
-          </div>
+						<Input
+							placeholder="Collection name..."
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+							maxLength={COLLECTION_NAME_MAX}
+						/>
+					</div>
 
-          <div className="space-y-1">
-            <Label>Description</Label>
+					<div className="space-y-1">
+						<Label>Description</Label>
 
-            <Input
-              placeholder="Collection description..."
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-              maxLength={COLLECTION_DESCRIPTION_MAX}
-            />
-          </div>
-        </>
-      )}
-    />
-  )
+						<Input
+							placeholder="Collection description..."
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
+							maxLength={COLLECTION_DESCRIPTION_MAX}
+						/>
+					</div>
+				</>
+			)}
+		/>
+	)
 }
